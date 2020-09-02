@@ -6,7 +6,8 @@ const pool = mariadb.createPool({
     host: "localhost",
     user: "pi",
     password: "123",
-    database: "baba_eletronica"
+    database: "baba_eletronica",
+    timezone: 'utc'
 });
 
 // expose the ability to create new connections
