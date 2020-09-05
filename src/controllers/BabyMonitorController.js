@@ -28,15 +28,11 @@ module.exports = {
         try {
             conn = await pool.getConnection();
             var values = [];
-            // var mysqlTimestamp = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+
             var mysqlTimestamp = new Date();
             mysqlTimestamp.setHours(mysqlTimestamp.getHours() - 3);
-            // var mysqlTimestamp = moment().utc().format('YYYY-MM-DD HH:mm:ss');
 
             values.push(mysqlTimestamp);
-
-            console.log(mysqlTimestamp);
-            console.log(values);
 
             var query = "INSERT INTO monitoramento_choro (data)  VALUES ?";
 
