@@ -1,6 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const pool = require('./db');
+const app = require('./app');
+
+// const express = require('express');
+// const bodyParser = require('body-parser');
+// const pool = require('./db');
 
 // --------------------------------------------------------------
 // Connection Mariadb
@@ -35,9 +37,9 @@ const pool = require('./db');
 
 // --------------------------------------------------------------
 // Express configure
-const app = express();
-app.use(bodyParser.json());
-app.use(express.static('.'));
+// const app = express();
+// app.use(bodyParser.json());
+// app.use(express.static('.'));
 // app.use(express.static('/home/pi/Electronic-Nanny-Server'));
 app.listen(8080, function () {
     setTimeout(() => { console.log("Waiting 2sec"), 2000 });
@@ -58,27 +60,27 @@ app.listen(8080, function () {
 //     });
 // });
 
-app.get('/ServerRequest/CryReport', async (req, res) => {
-    let conn;
-    let teste = {};
-    try {
-        // establish a connection to MariaDB
-        conn = await pool.getConnection();
+// app.get('/ServerRequest/CryReport', async (req, res) => {
+//     let conn;
+//     let teste = {};
+//     try {
+//         // establish a connection to MariaDB
+//         conn = await pool.getConnection();
 
-        // create a new query
-        var query = `SELECT * FROM monitoramento_choro`;
+//         // create a new query
+//         var query = `SELECT * FROM monitoramento_choro`;
 
 
-        // execute the query and set the result to a new variable
-        var rows = await conn.query(query);
+//         // execute the query and set the result to a new variable
+//         var rows = await conn.query(query);
 
-        res.json(rows);
-    } catch (err) {
-        throw err;
-    } finally {
-        if (conn) return conn.release();
-    }
-});
+//         res.json(rows);
+//     } catch (err) {
+//         throw err;
+//     } finally {
+//         if (conn) return conn.release();
+//     }
+// });
 
 // app.delete('/ServerRequest/DeleteCryById', async (req, res) => {
 //     let conn;
@@ -105,28 +107,30 @@ app.get('/ServerRequest/CryReport', async (req, res) => {
 //         if (conn) return conn.release();
 //     }
 // });
-app.post('/ServerRequest/DeleteCryById', async (req, res) => {
-    let conn;
-    try {
-        // establish a connection to MariaDB
-        conn = await pool.getConnection();
 
-        // create a new query
-        var query = 'DELETE FROM `monitoramento_choro` WHERE `id`=?';
+// Rota para delete by id
+// app.post('/ServerRequest/DeleteCryById', async (req, res) => {
+//     let conn;
+//     try {
+//         // establish a connection to MariaDB
+//         conn = await pool.getConnection();
 
-        await conn.query(query, [req.body.id], function (error, results, fields) {
-            if (error) throw error;
-            res.end('Record has been deleted!');
-        });
-        res.send("Deleted");
+//         // create a new query
+//         var query = 'DELETE FROM `monitoramento_choro` WHERE `id`=?';
 
-        // execute the query and set the result to a new variable
-        // var rows = await conn.query(query);
+//         await conn.query(query, [req.body.id], function (error, results, fields) {
+//             if (error) throw error;
+//             res.end('Record has been deleted!');
+//         });
+//         res.send("Deleted");
 
-        // res.json(rows);
-    } catch (err) {
-        throw err;
-    } finally {
-        if (conn) return conn.release();
-    }
-});
+//         // execute the query and set the result to a new variable
+//         // var rows = await conn.query(query);
+
+//         // res.json(rows);
+//     } catch (err) {
+//         throw err;
+//     } finally {
+//         if (conn) return conn.release();
+//     }
+// });
